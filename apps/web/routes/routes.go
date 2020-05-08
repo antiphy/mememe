@@ -12,6 +12,8 @@ func NewRouter() *echo.Echo {
 	templates := preCompile("/views")
 	e.Renderer = templates
 	e.Static("/public", "/public")
+
+	// static pages
 	e.GET("", controllers.Index)
 	e.GET("/products", controllers.Products)
 	e.GET("/about", controllers.About)
@@ -19,6 +21,7 @@ func NewRouter() *echo.Echo {
 	// blog
 	blog := e.Group("/blog")
 	blog.GET("", controllers.BlogIndex)
+	blog.GET("/p/:page", controllers.BlogIndex)
 	blog.GET("/a/:id/:title", controllers.BlogDetail)
 	blog.GET("/login", controllers.BlogLoginGET)
 	blog.POST("/login", controllers.BlogLoginPOST)
