@@ -12,7 +12,7 @@ import (
 
 	// register template filter
 	_ "github.com/antiphy/mememe/apps/web/viewfuncs"
-	"github.com/antiphy/mememe/utils"
+	"github.com/antiphy/mememe/dal/consts"
 
 	"github.com/flosch/pongo2"
 	"github.com/fsnotify/fsnotify"
@@ -24,7 +24,7 @@ type template struct {
 }
 
 func (t *template) Render(w io.Writer, templateName string, data interface{}, c echo.Context) error {
-	templateName = utils.GetViewFilePath() + templateName
+	templateName = consts.GetViewsDirPath() + templateName
 	dataMap := data.(map[string]interface{})
 	template, exist := t.tmplMap[templateName]
 	if !exist {

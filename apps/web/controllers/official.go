@@ -7,13 +7,22 @@ import (
 )
 
 func Index(c echo.Context) error {
-	return c.Render(http.StatusOK, "index.html", nil)
+	data := map[string]interface{}{
+		"title": "",
+	}
+	return c.Render(http.StatusOK, "index.html", data)
 }
 
 func Products(c echo.Context) error {
-	return c.Render(http.StatusOK, "products.html", nil)
+	data := map[string]interface{}{
+		"title": "",
+	}
+	return c.Render(http.StatusOK, "products.html", data)
 }
 
 func About(c echo.Context) error {
-	return c.Render(http.StatusOK, "about.html", nil)
+	data := map[string]interface{}{
+		"title": "",
+	}
+	return c.Render(http.StatusOK, "about.html", data)
 }

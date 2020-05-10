@@ -1,9 +1,12 @@
 package utils
 
-func GetViewFilePath() string {
-	return ""
-}
+import (
+	"crypto/md5"
+	"encoding/hex"
+)
 
 func MD5(origin string) string {
-	return ""
+	hasher := md5.New()
+	hasher.Write([]byte(origin))
+	return hex.EncodeToString(hasher.Sum(nil))
 }

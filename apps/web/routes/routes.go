@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/antiphy/mememe/apps/web/controllers"
+	"github.com/antiphy/mememe/dal/consts"
 	"github.com/labstack/echo/v4"
 )
 
@@ -9,9 +10,9 @@ func NewRouter() *echo.Echo {
 	e := echo.New()
 	e.Debug = true
 	e.HideBanner = true
-	templates := preCompile("/views")
+	templates := preCompile(consts.GetViewsDirPath())
 	e.Renderer = templates
-	e.Static("/public", "/public")
+	e.Static("/public", consts.GetStaticDirPath())
 
 	// static pages
 	e.GET("", controllers.Index)
