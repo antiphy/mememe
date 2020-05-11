@@ -10,7 +10,7 @@ import (
 )
 
 func Setting(c echo.Context) error {
-	data := map[string]interface{}{}
+	data := newBaseData()
 	return c.Render(http.StatusOK, "setting.html", data)
 }
 
@@ -20,7 +20,7 @@ func CreateOrUpdateSettings(c echo.Context) error {
 	err := c.Bind(&settings)
 	if err != nil {
 		res["code"] = 1
-		res["msg"] = "invalid request params"
+		res["msg"] = "invalid request params:" + err.Error()
 		return c.JSON(http.StatusOK, res)
 	}
 	err = dbactions.InsertOrUpdateSettings(settings)

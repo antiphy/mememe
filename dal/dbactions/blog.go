@@ -14,7 +14,7 @@ func QueryBlogArticle(params *models.QueryParams) (*models.ExtendArticle, error)
 
 func QueryBlogArticles(params *models.QueryParams) ([]models.ExtendArticle, error) {
 	var eas []models.ExtendArticle
-	err := db.Raw(sqlQueryArticles, params.PageSize, (params.Page-1)*params.PageSize).Scan(eas).Error
+	err := db.Raw(sqlQueryArticles, params.PageSize, (params.Page-1)*params.PageSize).Scan(&eas).Error
 	return eas, err
 }
 

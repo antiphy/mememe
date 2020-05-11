@@ -10,7 +10,7 @@ var cache models.Cache
 func newBaseData() map[string]interface{} {
 	data := map[string]interface{}{
 		"app_name": cache.GET("app_name").SettingValue,
-		"desc":     cache.GET("app_desc").SettingValue,
+		"app_desc": cache.GET("app_desc").SettingValue,
 		"email":    cache.GET("email").SettingValue,
 		"phone":    cache.GET("phone").SettingValue,
 		"address":  cache.GET("address").SettingValue,
