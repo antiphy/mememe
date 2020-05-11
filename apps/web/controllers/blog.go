@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/antiphy/mememe/dal/consts"
 	"github.com/antiphy/mememe/dal/dbactions"
 	"github.com/antiphy/mememe/dal/models"
 	"github.com/antiphy/mememe/utils"
@@ -16,6 +15,7 @@ func BlogIndex(c echo.Context) error {
 		page int
 		err  error
 	)
+	data := newBaseData()
 	page, err = strconv.Atoi(c.Param(":page"))
 	if err != nil {
 		page = 1
@@ -23,14 +23,12 @@ func BlogIndex(c echo.Context) error {
 	params := models.QueryParams{Page: page}
 	articles, err := dbactions.QueryBlogArticles(&params)
 	if err != nil {
-		// TODO:
+		data["message"] = "server error:" + err.Error()
+		return c.Render(http.StatusOK, "message.html", data)
 	}
-	data := map[string]interface{}{
-		"title":    consts.AppName,
-		"articles": articles,
-		"page":     params.Page,
-		"total":    params.Total,
-	}
+	data["articles"] = articles
+	data["page"] = params.Page
+	data["total"] = params.Total
 	return c.Render(http.StatusOK, "blog/index.html", data)
 }
 
@@ -39,24 +37,26 @@ func BlogDetail(c echo.Context) error {
 		id  int
 		err error
 	)
+	data := newBaseData()
 	id, err = strconv.Atoi(c.Param(":id"))
 	if err != nil {
-		// TODO:
+		data["message"] = "invalid article id"
+		return c.Render(http.StatusOK, "message.html", data)
 	}
 	params := models.QueryParams{ID: id}
 	article, err := dbactions.QueryBlogArticle(&params)
 	if err != nil {
-		// TODO:
+		data["message"] = "server error:" + err.Error()
+		return c.Render(http.StatusOK, "message.html", data)
 	}
-	data := map[string]interface{}{
-		"title":   article.Title + consts.AppName,
-		"article": article,
-	}
+	data["title"] = article.Title
+	data["article"] = article
 	return c.Render(http.StatusOK, "blog/article.html", data)
 }
 
 func BlogCreateArticle(c echo.Context) error {
-	return c.Render(http.StatusOK, "blog/create_blog.html", nil)
+	data := newBaseData()
+	return c.Render(http.StatusOK, "blog/create_blog.html", data)
 }
 
 func BlogCreateArticlePOST(c echo.Context) error {
@@ -65,7 +65,7 @@ func BlogCreateArticlePOST(c echo.Context) error {
 	err := c.Bind(&article)
 	if err != nil {
 		res["code"] = 1
-		res["msg"] = "data bind err:" + err.Error()
+		res["msg"] = "invalid request data:" + err.Error()
 		return c.JSON(http.StatusOK, res)
 	}
 	err = dbactions.CreateBlogArticle(&article)
@@ -79,7 +79,8 @@ func BlogCreateArticlePOST(c echo.Context) error {
 }
 
 func BlogLoginGET(c echo.Context) error {
-	return c.Render(http.StatusOK, "blog/login.html", nil)
+	data := newBaseData()
+	return c.Render(http.StatusOK, "blog/login.html", data)
 }
 
 func BlogLoginPOST(c echo.Context) error {
@@ -88,20 +89,20 @@ func BlogLoginPOST(c echo.Context) error {
 	err := c.Bind(&account)
 	if err != nil {
 		res["code"] = 1
-		res["msg"] = "data bind err:" + err.Error()
+		res["msg"] = "invalid request data:" + err.Error()
 		return c.JSON(http.StatusOK, res)
 	}
 	password := account.Password
 	err = dbactions.QueryAccount(&account)
 	if err != nil {
 		res["code"] = 1
-		res["msg"] = "query account err:" + err.Error()
+		res["msg"] = "server err:" + err.Error()
 		return c.JSON(http.StatusOK, res)
 	}
 	if utils.MD5(password) != account.Password {
 		res["code"] = 1
 		res["msg"] = "incorrect password"
-		// TODO:
+		// TODO: antispam
 		return c.JSON(http.StatusOK, res)
 	}
 	res["code"] = 0

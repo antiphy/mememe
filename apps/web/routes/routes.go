@@ -18,6 +18,8 @@ func NewRouter() *echo.Echo {
 	e.GET("", controllers.Index)
 	e.GET("/products", controllers.Products)
 	e.GET("/about", controllers.About)
+	e.GET("/setting", controllers.Setting)
+	e.POST("/setting", controllers.CreateOrUpdateSettings)
 
 	// blog
 	blog := e.Group("/blog")
