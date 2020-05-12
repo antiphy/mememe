@@ -3,11 +3,10 @@
 
 <head>
     <meta charset=utf-8>
-    <title>Kross | Hugo Portfolio Template</title>
+    <title> {{title}} | {{app_name}}</title>
     <meta name=viewport content="width=device-width,initial-scale=1">
     <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-    <meta name=description content="This is meta description">
-    <meta name=author content="Johnathan Smith">
+    <meta name=description content="{{app_desc}}">
     <style>
         :root {
             --primary-color: #41228e
@@ -25,13 +24,13 @@
     <div class=preloader></div>
     <header class="navigation fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class=navbar-brand href=/ /><img src=/public/images/logo.png alt="Kross | Hugo Portfolio Template"></a>
+            <a class=navbar-brand href=/ /><img src=/public/images/logo.png ></a>
             <button class=navbar-toggler type=button data-toggle=collapse data-target=#navigation
                 aria-controls=navigation aria-expanded=false aria-label="Toggle navigation">
                 <span class=navbar-toggler-icon></span></button>
             <div class="collapse navbar-collapse text-center" id=navigation>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a class=nav-link href=/ />Home</a></li>
+                    <li class="nav-item active"><a class=nav-link href=/ >Home</a></li>
                     <li class=nav-item><a class=nav-link href=/products>Products</a></li>
                     <li class=nav-item><a class=nav-link href=/blog>Blog</a></li>
                     <li class=nav-item><a class=nav-link href=/about>About</a></li>
@@ -48,15 +47,15 @@
                 <div class=row>
                     <div class=col-md-4>
                         <h5 class=text-light>Email</h5>
-                        <p class="text-white paragraph-lg font-secondary">antiphy#email.com</p>
+                        <p class="text-white paragraph-lg font-secondary">{{email}}</p>
                     </div>
                     <div class=col-md-4>
                         <h5 class=text-light>Phone</h5>
-                        <p class="text-white paragraph-lg font-secondary">+86 ___________</p>
+                        <p class="text-white paragraph-lg font-secondary">{{phone}}</p>
                     </div>
                     <div class=col-md-4>
                         <h5 class=text-light>Address</h5>
-                        <p class="text-white paragraph-lg font-secondary">_____________, Chengdu, China</p>
+                        <p class="text-white paragraph-lg font-secondary">{{address}}</p>
                     </div>
                 </div>
             </div>

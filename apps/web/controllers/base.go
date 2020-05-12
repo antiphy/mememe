@@ -22,11 +22,13 @@ func newBaseData() map[string]interface{} {
 		"email":    cache.GET("email").SettingValue,
 		"phone":    cache.GET("phone").SettingValue,
 		"address":  cache.GET("address").SettingValue,
+		"github":   cache.GET("github"),
+		"twitter":  cache.GET("twitter"),
 	}
 	return data
 }
 
-func init() {
+func InitSettingCache() {
 	cache = models.NewCache()
 	settings, err := dbactions.QuerySettings()
 	if err != nil {

@@ -1,6 +1,8 @@
 package models
 
-import "sync"
+import (
+	"sync"
+)
 
 type QueryParams struct {
 	ID       int
@@ -21,8 +23,14 @@ type cache struct {
 
 func (c *cache) GET(key string) *Setting {
 	c.RLock()
-	val := c.data[key]
+	val, exists := c.data[key]
 	c.RUnlock()
+	if !exists {
+		return &Setting{
+			SettingKey:   key,
+			SettingValue: "default setting value, please set this field.",
+		}
+	}
 	return val
 }
 
