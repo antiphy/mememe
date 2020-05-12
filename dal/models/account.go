@@ -14,3 +14,7 @@ type Account struct {
 func (*Account) TableName() string {
 	return "mememe_account"
 }
+
+func (a *Account) IsAdmin() bool {
+	return true
+}

@@ -5,7 +5,8 @@ import (
 )
 
 const (
-	AppName = "antiphy的博客"
+	AppName      = "antiphy的博客"
+	WebSecretKey = "123456"
 )
 
 func GetCRTFilePath() string {

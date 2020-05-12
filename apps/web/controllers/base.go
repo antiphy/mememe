@@ -1,11 +1,19 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/antiphy/mememe/dal/dbactions"
 	"github.com/antiphy/mememe/dal/models"
+	"github.com/labstack/echo/v4"
 )
 
 var cache models.Cache
+
+func Message(c echo.Context) error {
+	data := newBaseData()
+	return c.Render(http.StatusOK, "message.html", data)
+}
 
 func newBaseData() map[string]interface{} {
 	data := map[string]interface{}{
