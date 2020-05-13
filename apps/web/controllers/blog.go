@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/antiphy/mememe/dal/dbactions"
 	"github.com/antiphy/mememe/dal/models"
@@ -87,7 +88,13 @@ func BlogLoginGET(c echo.Context) error {
 }
 
 func BlogLoginPOST(c echo.Context) error {
+	ip := strings.Split(c.Request().RemoteAddr, ",")[0]
 	res := make(map[string]interface{})
+	if blocker.IsBlocked(ip) {
+		res["code"] = 1
+		res["msg"] = "blocked"
+		return c.JSON(http.StatusOK, res)
+	}
 	var account models.Account
 	err := c.Bind(&account)
 	if err != nil {
@@ -105,7 +112,7 @@ func BlogLoginPOST(c echo.Context) error {
 	if utils.MD5(password) != account.Password {
 		res["code"] = 1
 		res["msg"] = "incorrect password"
-		// TODO: antispam
+		blocker.Incr(ip)
 		return c.JSON(http.StatusOK, res)
 	}
 	res["code"] = 0

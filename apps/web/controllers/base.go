@@ -8,7 +8,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var cache models.Cache
+var (
+	cache   models.Cache
+	blocker models.Blocker
+)
 
 func Message(c echo.Context) error {
 	data := newBaseData()
@@ -39,4 +42,5 @@ func InitSettingCache() {
 	for i := range settings {
 		cache.SET(settings[i].SettingKey, &settings[i])
 	}
+	blocker = models.NewBlocker()
 }

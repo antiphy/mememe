@@ -23,3 +23,9 @@ func About(c echo.Context) error {
 	data["title"] = "About"
 	return c.Render(http.StatusOK, "about.html", data)
 }
+
+func Contact(c echo.Context) error {
+	data := newBaseData()
+	data["title"] = "Contact"
+	return c.Render(http.StatusOK, "contact.html", data)
+}
