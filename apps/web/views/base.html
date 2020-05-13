@@ -18,22 +18,23 @@
     <link rel=stylesheet href=/public/css/style.min.css integrity media=screen>
     <link rel="shortcut icon" href=/public/images/favicon.png type=image/x-icon>
     <link rel=icon href=/public/images/favicon.png type=image/x-icon>
+    <script src=/public/plugins/jQuery/jquery.min.js></script>
 </head>
 
 <body>
     <div class=preloader></div>
     <header class="navigation fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class=navbar-brand href=/ /><img src=/public/images/logo.png ></a>
+            <a class=navbar-brand href=/ /><img src=/public/images/logo.png></a>
             <button class=navbar-toggler type=button data-toggle=collapse data-target=#navigation
                 aria-controls=navigation aria-expanded=false aria-label="Toggle navigation">
                 <span class=navbar-toggler-icon></span></button>
             <div class="collapse navbar-collapse text-center" id=navigation>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a class=nav-link href=/ >Home</a></li>
-                    <li class=nav-item><a class=nav-link href=/products>Products</a></li>
-                    <li class=nav-item><a class=nav-link href=/blog>Blog</a></li>
-                    <li class=nav-item><a class=nav-link href=/about>About</a></li>
+                    <li class=nav-item id=nav_home><a class=nav-link href= />Home</a></li>
+                    <li class=nav-item id=nav_products><a class=nav-link href=/products>Products</a></li>
+                    <li class=nav-item id=nav_blog><a class=nav-link href=/blog>Blog</a></li>
+                    <li class=nav-item id=nav_about><a class=nav-link href=/about>About</a></li>
                     </li>
                 </ul>
             </div>
@@ -65,7 +66,6 @@
             </p>
         </div>
     </footer>
-    <script src=/public/plugins/jQuery/jquery.min.js></script>
     <script src=/public/plugins/bootstrap/bootstrap.min.js></script>
     <script src=/public/plugins/slick/slick.min.js></script>
     <script src=/public/plugins/shuffle/shuffle.min.js></script>

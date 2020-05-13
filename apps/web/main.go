@@ -5,8 +5,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/antiphy/mememe/apps/web/controllers"
-
 	"github.com/antiphy/mememe/apps/web/routes"
 	"github.com/antiphy/mememe/dal/consts"
 	"github.com/antiphy/mememe/dal/dbactions"
@@ -56,7 +54,6 @@ func main() {
 		}
 		return
 	}
-	controllers.InitSettingCache()
 	httpEngine := echo.New()
 	httpEngine.Pre(middleware.HTTPSRedirect())
 	go func() {

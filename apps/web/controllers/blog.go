@@ -26,6 +26,7 @@ func BlogIndex(c echo.Context) error {
 		data["message"] = "server error:" + err.Error()
 		return c.Render(http.StatusOK, "message.html", data)
 	}
+	data["title"] = "blog index"
 	data["articles"] = articles
 	data["page"] = params.Page
 	data["total"] = params.Total
@@ -56,6 +57,7 @@ func BlogDetail(c echo.Context) error {
 
 func BlogCreateArticle(c echo.Context) error {
 	data := newBaseData()
+	data["title"] = "create blog article"
 	return c.Render(http.StatusOK, "blog/create_blog.html", data)
 }
 
@@ -80,6 +82,7 @@ func BlogCreateArticlePOST(c echo.Context) error {
 
 func BlogLoginGET(c echo.Context) error {
 	data := newBaseData()
+	data["title"] = "login"
 	return c.Render(http.StatusOK, "blog/login.html", data)
 }
 

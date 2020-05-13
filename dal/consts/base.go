@@ -5,7 +5,6 @@ import (
 )
 
 const (
-	AppName      = "antiphy的博客"
 	WebSecretKey = "123456"
 )
 

@@ -8,6 +8,7 @@ import (
 
 func Index(c echo.Context) error {
 	data := newBaseData()
+	data["title"] = cache.GET("app_name").SettingValue
 	return c.Render(http.StatusOK, "index.html", data)
 }
 

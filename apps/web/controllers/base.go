@@ -12,6 +12,7 @@ var cache models.Cache
 
 func Message(c echo.Context) error {
 	data := newBaseData()
+	data["title"] = "hint"
 	return c.Render(http.StatusOK, "message.html", data)
 }
 
@@ -22,8 +23,9 @@ func newBaseData() map[string]interface{} {
 		"email":    cache.GET("email").SettingValue,
 		"phone":    cache.GET("phone").SettingValue,
 		"address":  cache.GET("address").SettingValue,
-		"github":   cache.GET("github"),
-		"twitter":  cache.GET("twitter"),
+		"github":   cache.GET("github").SettingValue,
+		"twitter":  cache.GET("twitter").SettingValue,
+		"admin":    cache.GET("admin").SettingValue,
 	}
 	return data
 }

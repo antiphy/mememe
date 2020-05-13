@@ -8,6 +8,7 @@ import (
 )
 
 func NewRouter() *echo.Echo {
+	controllers.InitSettingCache()
 	e := echo.New()
 	e.Debug = true
 	e.HideBanner = true
