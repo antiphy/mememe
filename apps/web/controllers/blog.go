@@ -4,10 +4,13 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
+	"github.com/antiphy/mememe/dal/consts"
 	"github.com/antiphy/mememe/dal/dbactions"
 	"github.com/antiphy/mememe/dal/models"
 	"github.com/antiphy/mememe/utils"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 )
 
@@ -21,7 +24,7 @@ func BlogIndex(c echo.Context) error {
 	if err != nil {
 		page = 1
 	}
-	params := models.QueryParams{Page: page}
+	params := models.QueryParams{Page: page, PageSize: 10}
 	articles, err := dbactions.QueryBlogArticles(&params)
 	if err != nil {
 		data["message"] = "server error:" + err.Error()
@@ -58,12 +61,23 @@ func BlogDetail(c echo.Context) error {
 
 func BlogCreateArticle(c echo.Context) error {
 	data := newBaseData()
+	a := getAccount(c)
+	if a == nil {
+		data["message"] = "login required"
+		return c.Render(http.StatusOK, "message.html", data)
+	}
 	data["title"] = "create blog article"
 	return c.Render(http.StatusOK, "blog/create_blog.html", data)
 }
 
 func BlogCreateArticlePOST(c echo.Context) error {
 	res := make(map[string]interface{})
+	a := getAccount(c)
+	if a == nil {
+		res["code"] = 1
+		res["msg"] = "login required"
+		return c.JSON(http.StatusOK, res)
+	}
 	var article models.Article
 	err := c.Bind(&article)
 	if err != nil {
@@ -83,6 +97,10 @@ func BlogCreateArticlePOST(c echo.Context) error {
 
 func BlogLoginGET(c echo.Context) error {
 	data := newBaseData()
+	a := getAccount(c)
+	if a != nil {
+		return c.Redirect(http.StatusOK, "/")
+	}
 	data["title"] = "login"
 	return c.Render(http.StatusOK, "blog/login.html", data)
 }
@@ -115,6 +133,11 @@ func BlogLoginPOST(c echo.Context) error {
 		blocker.Incr(ip)
 		return c.JSON(http.StatusOK, res)
 	}
+	appName := cache.GET("app_name").SettingValue
+	claims := models.JWTClaims{UID: account.ID, Name: account.Name, ExpireTS: time.Now().Unix() + 30*86400, Issuer: appName}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	ts, err := token.SignedString([]byte(consts.WebSecretKey))
+	c.SetCookie(&http.Cookie{Name: appName, Value: ts, Domain: cache.GET("app_domain").SettingValue, Path: "/"})
 	res["code"] = 0
 	return c.JSON(http.StatusOK, res)
 }

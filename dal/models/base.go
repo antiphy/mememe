@@ -1,7 +1,9 @@
 package models
 
 import (
+	"errors"
 	"sync"
+	"time"
 )
 
 type QueryParams struct {
@@ -9,6 +11,20 @@ type QueryParams struct {
 	Page     int
 	PageSize int
 	Total    int
+}
+
+type JWTClaims struct {
+	UID      int
+	Name     string
+	ExpireTS int64
+	Issuer   string
+}
+
+func (c JWTClaims) Valid() error {
+	if c.ExpireTS <= time.Now().Unix() {
+		return errors.New("token expired")
+	}
+	return nil
 }
 
 type Cache interface {

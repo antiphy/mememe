@@ -3,6 +3,7 @@ package models
 type Article struct {
 	ID         int
 	CategoryID int
+	Cover      string
 	Title      string
 	Content    string
 	Status     int8
@@ -18,6 +19,7 @@ func (*Article) TableName() string {
 type ExtendArticle struct {
 	ID         int
 	CategoryID int
+	Cover      string
 	Title      string
 	Content    string
 	Status     int8

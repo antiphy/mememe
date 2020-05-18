@@ -20,97 +20,25 @@
 <section class="section">
     <div class="container">
         <div class="row">
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-2.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income.1/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income.1/" class="btn btn-xs btn-primary">Read More</a>
+            {% if articles %}
+            {% for a in articles %}
+            <div class="card mb-3" style="width: 100%;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{a.Cover}}" class="card-img">
                     </div>
-                </article>
-            </div>
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-3.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income.2/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income.2/" class="btn btn-xs btn-primary">Read More</a>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.Title}}</h5>
+                            <p class="card-text">{{a.Content}}</p>
+                            <p class="card-text"><small class="text-muted">{{a.CreateTS | TimestampDisplay}}</small></p>
+                        </div>
                     </div>
-                </article>
+                </div>
             </div>
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-4.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income.3/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income.3/" class="btn btn-xs btn-primary">Read More</a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-5.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income.4/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income.4/" class="btn btn-xs btn-primary">Read More</a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-3.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income.5/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income.5/" class="btn btn-xs btn-primary">Read More</a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-lg-4 col-sm-6 mb-4">
-                <article class="card shadow">
-                    <img class="rounded card-img-top" src="/public/images/blog/post-5.jpg"
-                        alt="Amazon increase income 1.5 Million">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="text-dark" href="/public/blog/amazon-increase-income/">Amazon
-                                increase income 1.5 Million</a>
-                        </h4>
-                        <p class="cars-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/public/blog/amazon-increase-income/" class="btn btn-xs btn-primary">Read More</a>
-                    </div>
-                </article>
-            </div>
-
+            {% endfor %}
+            {% else %}
+            {% endif %}
         </div>
     </div>
 </section>

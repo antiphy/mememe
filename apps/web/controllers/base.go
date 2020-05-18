@@ -13,24 +13,33 @@ var (
 	blocker models.Blocker
 )
 
+func newBaseData() map[string]interface{} {
+	data := map[string]interface{}{
+		"app_name":   cache.GET("app_name").SettingValue,
+		"app_domain": cache.GET("app_domain").SettingType,
+		"app_desc":   cache.GET("app_desc").SettingValue,
+		"email":      cache.GET("email").SettingValue,
+		"phone":      cache.GET("phone").SettingValue,
+		"address":    cache.GET("address").SettingValue,
+		"github":     cache.GET("github").SettingValue,
+		"twitter":    cache.GET("twitter").SettingValue,
+		"admin":      cache.GET("admin").SettingValue,
+	}
+	return data
+}
+
+func getAccount(c echo.Context) *models.Account {
+	a, ok := c.Get("account").(*models.Account)
+	if !ok {
+		return nil
+	}
+	return a
+}
+
 func Message(c echo.Context) error {
 	data := newBaseData()
 	data["title"] = "hint"
 	return c.Render(http.StatusOK, "message.html", data)
-}
-
-func newBaseData() map[string]interface{} {
-	data := map[string]interface{}{
-		"app_name": cache.GET("app_name").SettingValue,
-		"app_desc": cache.GET("app_desc").SettingValue,
-		"email":    cache.GET("email").SettingValue,
-		"phone":    cache.GET("phone").SettingValue,
-		"address":  cache.GET("address").SettingValue,
-		"github":   cache.GET("github").SettingValue,
-		"twitter":  cache.GET("twitter").SettingValue,
-		"admin":    cache.GET("admin").SettingValue,
-	}
-	return data
 }
 
 func InitSettingCache() {
